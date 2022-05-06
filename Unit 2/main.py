@@ -35,10 +35,21 @@ wageData.drop(columns=["State"], inplace = True)
 # salaryData = pd.concat([salaryData, salaryData.max().transpose()], axis = 1)
 
 # print(salaryData)
-print(salaryData.max())
-print(pd.DataFrame([salaryData.max(), salaryData.min()], columns=["Max","Min"]).transpose())
+# print(salaryData.max())
+# print(pd.concat([pd.DataFrame(salaryData.max(), columns=["Max"]), pd.DataFrame(salaryData.min(), columns=["Min"])], axis=1).transpose())
 
-exit()
+salaryData = pd.concat([salaryData, pd.concat([pd.DataFrame(salaryData.max(), columns=["Max"]), pd.DataFrame(salaryData.min(), columns=["Min"])], axis=1).transpose()])
+
+graduationData = pd.concat([graduationData, pd.concat([pd.DataFrame(graduationData.max(), columns=["Max"]), pd.DataFrame(graduationData.min(), columns=["Min"])], axis=1).transpose()])
+
+ratioData = pd.concat([ratioData, pd.concat([pd.DataFrame(ratioData.max(), columns=["Max"]), pd.DataFrame(ratioData.min(), columns=["Min"])], axis=1).transpose()])
+
+wageData = pd.concat([wageData, pd.concat([pd.DataFrame(wageData.max(), columns=["Max"]), pd.DataFrame(wageData.min(), columns=["Min"])], axis=1).transpose()])
+
+
+# print(salaryData)
+
+# exit()
 
 # --------------------ADJUST NUMBERS FOR INFLATION-------------------- #
 
@@ -90,45 +101,19 @@ maxGrad = allData["Graduation"].max().max()+1
 minGrad = allData["Graduation"].min().min()-1
 
 for i in range(len(axArr)): 
-    if i < 52:
-        state = states[i]
-        ax = axArr[i]
-        ax.set_title(state,fontdict = {"fontsize": 7}, y=.9)
-        allDataRotated.loc["Salary",state].plot.line(ax=ax)
-        allDataRotated.loc["Salary 2019 Inflation",state].plot.line(ax=ax)
-        allDataRotated.loc["Graduation", state].plot.line(ax=ax,secondary_y=True)
-        
-        ax.label_outer()
-        ax.right_ax.label_outer()
-        #x axis good
-        ax.tick_params(axis='x',which='both', direction="in", labelrotation=80)
-        #make secondary y shared
-        ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
-
-    elif i == 52:
-        ax = axArr[i]
-        ax.set_title("Max",fontdict = {"fontsize": 7}, y=.9)
-        allData.loc[:,"Salary"].max().plot.line(ax=ax)
-        allData.loc[:,"Salary 2019 Inflation"].max().plot.line(ax=ax)
-        allData.loc[:,"Graduation"].max().plot.line(ax=ax,secondary_y=True)
-        
-        ax.label_outer()
-        ax.right_ax.label_outer()
-        #x axis good
-        ax.tick_params(axis='x',which='both', direction="in", labelrotation=80)
-        ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
-    elif i == 53:
-        ax = axArr[i]
-        ax.set_title("Min",fontdict = {"fontsize": 7}, y=.9)
-        allData.loc[:,"Salary"].min().plot.line(ax=ax)
-        allData.loc[:,"Salary 2019 Inflation"].min().plot.line(ax=ax)
-        allData.loc[:,"Graduation"].min().plot.line(ax=ax,secondary_y=True)
-        
-        ax.label_outer()
-        ax.right_ax.label_outer()
-        #x axis good
-        ax.tick_params(axis='x',which='both', direction="in", labelrotation=80)
-        ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
+    state = states[i]
+    ax = axArr[i]
+    ax.set_title(state,fontdict = {"fontsize": 7}, y=.9)
+    allDataRotated.loc["Salary",state].plot.line(ax=ax)
+    allDataRotated.loc["Salary 2019 Inflation",state].plot.line(ax=ax)
+    allDataRotated.loc["Graduation", state].plot.line(ax=ax,secondary_y=True)
+    
+    ax.label_outer()
+    ax.right_ax.label_outer()
+    #x axis good
+    ax.tick_params(axis='x',which='both', direction="in", labelrotation=80)
+    #make secondary y shared
+    ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
         
         
 # print(axArr[0].right_ax.get_lines())
