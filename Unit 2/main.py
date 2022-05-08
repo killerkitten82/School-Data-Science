@@ -32,28 +32,17 @@ wageData.drop(columns=["State"], inplace = True)
 
 # --------------------ADD MAX AND MIN ROWS-------------------- #
 
-# salaryData = pd.concat([salaryData, salaryData.max().transpose()], axis = 1)
-
-# print(salaryData)
-# print(salaryData.max())
-# print(pd.concat([pd.DataFrame(salaryData.max(), columns=["Max"]), pd.DataFrame(salaryData.min(), columns=["Min"])], axis=1).transpose())
-
+# concat max and min rows after first concating the max and min rows together
 salaryData = pd.concat([salaryData, pd.concat([pd.DataFrame(salaryData.max(), columns=["Max"]), pd.DataFrame(salaryData.min(), columns=["Min"])], axis=1).transpose()])
-
 graduationData = pd.concat([graduationData, pd.concat([pd.DataFrame(graduationData.max(), columns=["Max"]), pd.DataFrame(graduationData.min(), columns=["Min"])], axis=1).transpose()])
-
 ratioData = pd.concat([ratioData, pd.concat([pd.DataFrame(ratioData.max(), columns=["Max"]), pd.DataFrame(ratioData.min(), columns=["Min"])], axis=1).transpose()])
-
 wageData = pd.concat([wageData, pd.concat([pd.DataFrame(wageData.max(), columns=["Max"]), pd.DataFrame(wageData.min(), columns=["Min"])], axis=1).transpose()])
-
-# print(salaryData)
 
 # exit()
 
 # --------------------ADJUST NUMBERS FOR INFLATION-------------------- #
 
 salary2019Data = masterInflationFunction(salaryData)
-
 wage2019Data = masterInflationFunction(wageData)
 
 # --------------------COMBINE DATA INTO ONE DATAFRAME-------------------- #
@@ -78,10 +67,12 @@ allDataFlipped = allData.reorder_levels([1,0], axis=1).sort_index(level=0, axis=
 # --------------------FLIP COLUMNS AND ROWS-------------------- #
 
 allDataRotated = allData.transpose()
-
 allDataFlippedRotated = allDataFlipped.transpose()
 
-#----------All States? Testing----------#
+# print(allDataRotated)
+# print(allDataFlippedRotated)
+
+#----------All States Line Graph----------#
 
 widthNumber = 9
 heightNumber = 6
@@ -89,7 +80,6 @@ states = allData.index
 
 # axArr = allDataRotated.loc["Salary",:].plot.line(subplots=True, layout=(heightNumber,widthNumber), sharex=True, sharey=True, legend = False)
 
-# fig, axArr = plt.subplots(heightNumber, widthNumber)
 fig = plt.figure()
 fig.set_size_inches(9,6)
 gs = fig.add_gridspec(heightNumber, widthNumber, hspace=0.3, wspace=0, top=0.967, right=0.945, left=0.1, bottom=0.136)
@@ -111,11 +101,9 @@ for i in range(len(axArr)):
     ax.right_ax.label_outer()
     #x axis good
     ax.tick_params(axis='x',which='both', direction="in", labelrotation=80)
-    #make secondary y shared
+    #make secondary y shared manually 
     ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
         
-        
-# print(axArr[0].right_ax.get_lines())
 fig.legend(axArr[0].get_lines() + axArr[0].right_ax.get_lines(), ["Salary", "Inflation", "Graduation"])
 
 plt.show()
