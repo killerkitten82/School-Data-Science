@@ -46,7 +46,6 @@ ratioData = pd.concat([ratioData, pd.concat([pd.DataFrame(ratioData.max(), colum
 
 wageData = pd.concat([wageData, pd.concat([pd.DataFrame(wageData.max(), columns=["Max"]), pd.DataFrame(wageData.min(), columns=["Min"])], axis=1).transpose()])
 
-
 # print(salaryData)
 
 # exit()
