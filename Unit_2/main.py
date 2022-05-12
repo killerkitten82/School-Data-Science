@@ -86,8 +86,8 @@ gs = fig.add_gridspec(heightNumber, widthNumber, hspace=0.3, wspace=0, top=0.967
 axs = gs.subplots(sharex=True, sharey=True)
 
 axArr = fig.axes
-maxGrad = allData["Graduation"].max().max()+1
-minGrad = allData["Graduation"].min().min()-1
+maxGrad = allDataRotated.loc["Graduation", "Max"].max()+1
+minGrad = allDataRotated.loc["Graduation", "Min"].min()-1
 
 for i in range(len(axArr)): 
     state = states[i]
