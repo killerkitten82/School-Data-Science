@@ -91,21 +91,31 @@ axArr = fig.axes
 maxGrad = allDataRotated.loc["Graduation", "Max"].max()+1
 minGrad = allDataRotated.loc["Graduation", "Min"].min()-1
 
+x = allDataRotated.loc["Salary"].index
+# print(x)
+
+
 for i in range(len(axArr)): 
     state = states[i]
     ax = axArr[i]
     ax.set_title(state,fontdict = {"fontsize": 7}, y=.9)
-    allDataRotated.loc["Salary",state].plot.line(ax=ax)
-    allDataRotated.loc["Salary 2019 Inflation",state].plot.line(ax=ax)
-    allDataRotated.loc["Graduation", state].plot.line(ax=ax,secondary_y=True)
+    y1 = allDataRotated.loc["Salary", state]
+    y2 = allDataRotated.loc["Salary 2019 Inflation",state]
+    y3 = allDataRotated.loc["Graduation", state]
+    ax.plot(x, y1)
+    ax.plot(x, y2)
+    ax.plot(x, y3, secondary_y=True)
+    # allDataRotated.loc["Salary",state].plot.line(ax=ax)
+    # allDataRotated.loc["Salary 2019 Inflation",state].plot.line(ax=ax)
+    # allDataRotated.loc["Graduation", state].plot.line(ax=ax,secondary_y=True)
     
     ax.label_outer()
-    ax.right_ax.label_outer()
+    # ax.right_ax.label_outer()
     #x axis good
     ax.tick_params(axis='x',which='both', direction="in", labelrotation=80)
     #make secondary y shared manually 
-    ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
+    # ax.right_ax.set_ylim(bottom=minGrad, top=maxGrad)
         
-fig.legend(axArr[0].get_lines() + axArr[0].right_ax.get_lines(), ["Salary", "Inflation", "Graduation"])
+# fig.legend(axArr[0].get_lines() + axArr[0].right_ax.get_lines(), ["Salary", "Inflation", "Graduation"])
 
 plt.show()
