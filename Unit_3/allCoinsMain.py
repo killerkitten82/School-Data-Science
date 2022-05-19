@@ -37,8 +37,8 @@ print(maxDF)
 
 # maxDF.drop(columns=["coin_WrappedBitcoin", "coin_Bitcoin"]).transpose().plot.pie(y="Max", legend=None, autopct="%1.1f%%")
 
-maxDF.drop(columns=["coin_WrappedBitcoin", "coin_Bitcoin"]).transpose().plot.bar(y="Max", legend=None)
-
+# maxDF.drop(columns=["coin_WrappedBitcoin", "coin_Bitcoin", "coin_Ethereum"]).transpose().plot.bar(y="Max", legend=None)
+maxDF.drop(columns=["coin_WrappedBitcoin", "coin_Bitcoin"]).transpose().plot.bar(y="Min", legend=None)
 
 
 # plt.legend(loc="None")
