@@ -1,0 +1,16 @@
+xRangeDropped = []
+maxDays = [31,28,31,30,31,30,31,31,30,31,30,31]
+maxLeapDays = [31,29,31,30,31,30,31,31,30,31,30,31]
+leapYears = [2012,2016,2020]
+for value in xRange:
+    # print(value)
+    year = int(str(value)[:4])
+    month = int(str(value)[4:6])
+    if month <= 12 and month > 0:
+        day = int(str(value)[6:])
+        if year not in leapYears:
+            if day <= maxDays[month-1] and day > 0:
+                xRangeDropped.append(value)
+        else:
+            if day <= maxLeapDays[month-1] and day > 0:
+                xRangeDropped.append(value)
