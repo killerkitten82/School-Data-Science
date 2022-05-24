@@ -74,7 +74,7 @@ allDataFlippedRotated = allDataFlipped.transpose()
 
 #----------All States Line Graph----------#
 
-plt.style.use("dark_background")
+# plt.style.use("dark_background")
 
 widthNumber = 9
 heightNumber = 6
@@ -83,7 +83,7 @@ states = allData.index
 # axArr = allDataRotated.loc["Salary",:].plot.line(subplots=True, layout=(heightNumber,widthNumber), sharex=True, sharey=True, legend = False)
 
 fig = plt.figure()
-fig.set_size_inches(9,6)
+fig.set_size_inches(16,10)
 gs = fig.add_gridspec(heightNumber, widthNumber, hspace=0.3, wspace=0, top=0.967, right=0.945, left=0.1, bottom=0.136)
 axs = gs.subplots(sharex=True, sharey=True)
 
